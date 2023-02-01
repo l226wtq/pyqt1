@@ -6,7 +6,7 @@ import configparser
 import filetype
 from PyQt5.QtCore import pyqtSignal, QThread
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit, \
-    QTextBrowser, QProgressBar, QTextEdit, QTabWidget
+    QTextBrowser, QProgressBar, QTextEdit, QTabWidget, QCheckBox
 
 
 class path_textBrower(QTextBrowser):
@@ -75,6 +75,8 @@ class Demo(QTabWidget):  # 1
         self.password_texteditor_logs = QTextEdit(self)
         self.password_texteditor_logs.textChanged.connect(self.passwordListChanged)
         self.progressBar_all = QProgressBar(self)
+        self.checkbox1 = QCheckBox('是否删除源文件')
+        self.checkbox1.clicked.connect(self.test)
 
         self.urls_string_files = []
         self.urls_string_dirs = []
@@ -85,18 +87,8 @@ class Demo(QTabWidget):  # 1
         self.layout_init()
         self.resize(700, 700)
 
-        # self.bm = bookManager()
-        # self.pathList = [r'C:\Users\lyy\workwork\djangoProject5\app01\static\jxl\真·中华小当家 Vol.12']
-        # self.fileCount = 0
-        # self.picDict = self.scanPics()
-        # self.multiNum = multiNum
-
-        # for list in self.picDict.values():
-        #     self.fileCount += len(list)
-
-        # self.input_textBrower_logs.setText('\n'.join(self.picList))
-        # self.progressBar_all.setRange(0, self.fileCount // self.multiNum)
-        # self.progressBar_all.setValue(0)
+    def test(self):
+        print(self.checkbox1.isChecked())
 
     def passwordListChanged(self):
         self.passwordList = list(filter(bool, self.password_texteditor_logs.toPlainText().split('\n')))
@@ -145,6 +137,7 @@ class Demo(QTabWidget):  # 1
 
         self.v_layout.addLayout(self.h_layout4)
         self.v_layout.addWidget(self.progressBar_all)
+        self.v_layout.addWidget(self.checkbox1)
         # self.setTabText(1, "个人详细信息")
         self.tab1.setLayout(self.v_layout)
         self.tab2.setLayout(self.v_layout)
